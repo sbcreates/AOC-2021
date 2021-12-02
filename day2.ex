@@ -1005,8 +1005,10 @@ defmodule Dive do
   ]
 
   def moves(movements \\ @movements) when is_list(movements) do
+    acc_start = %{horizontal: 0, depth: 0}
+    
     %{horizontal: horizontal, depth: depth} =
-      Enum.reduce(movements, %{horizontal: 0, depth: 0}, fn {key, value}, acc ->
+      Enum.reduce(movements, acc_start, fn {key, value}, acc ->
         case key do
           :forward -> Map.put(acc, :horizontal, acc.horizontal + value)
           :up -> Map.put(acc, :depth, acc.depth - value)
@@ -1018,7 +1020,8 @@ defmodule Dive do
   end
 
   def moves_with_aim(movements \\ @movements) when is_list(movements) do
-    acc_start = %{horizontal: 0, depth: 0, aim: 0, last_move: :start}
+    acc_start = %{horizontal: 0, depth: 0, aim: 0}
+
     %{horizontal: horizontal, depth: depth} =
       Enum.reduce(movements, acc_start, fn {key, value}, acc ->
         case key do
