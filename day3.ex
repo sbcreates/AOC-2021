@@ -8,8 +8,7 @@ defmodule Diagnostic do
   end
 
   def part_one() do
-    binaries = input()
-    do_part_one(binaries)
+    input() |> do_part_one()
   end
 
   defp do_part_one(binaries) do
